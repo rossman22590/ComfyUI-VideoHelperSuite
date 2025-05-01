@@ -348,7 +348,9 @@ class VideoCombine:
             for x in extra_pnginfo:
                 metadata.add_text(x, json.dumps(extra_pnginfo[x]))
                 video_metadata[x] = extra_pnginfo[x]
-            extra_options = extra_pnginfo.get('workflow', {}).get('extra', {})
+            extra_pnginfo = extra_pnginfo or {}
+            workflow_data = extra_pnginfo.get('workflow', {}) or {}
+            extra_options = workflow_data.get('extra', {}) or {}
         else:
             extra_options = {}
         metadata.add_text("CreationTime", datetime.datetime.now().isoformat(" ")[:19])
